@@ -13,6 +13,9 @@ const Expenses = (props) => {
           index={index}
           title={item.title}
           amount={item.amount}
+          method={item.method}
+          installments={item.installments}
+          color={item.color}
           date={item.date}
           deleteExpenseItem={props.deleteExpenseItem}
         />

@@ -6,6 +6,9 @@ const PaymentForm = ({ getPaymentFormData }) => {
   const [objectState, setObjectState] = useState({
     name: "",
     price: 0,
+    method: "card",
+    installments: "",
+    color: "",
     today: new Date(),
   });
 
@@ -23,6 +26,27 @@ const PaymentForm = ({ getPaymentFormData }) => {
     }));
   };
 
+  const inputMethodHandler = (event) => {
+    setObjectState((prevState) => ({
+      ...prevState,
+      method: event.target.value,
+    }));
+  };
+
+  const inputInstallmentsHandler = (event) => {
+    setObjectState((prevState) => ({
+      ...prevState,
+      installments: event.target.value,
+    }));
+  };
+
+  const inputColorHandler = (event) => {
+    setObjectState((prevState) => ({
+      ...prevState,
+      color: event.target.value,
+    }));
+  };
+
   const inputTodayHandler = (event) => {
     setObjectState((prevState) => ({
       ...prevState,
@@ -34,11 +58,14 @@ const PaymentForm = ({ getPaymentFormData }) => {
     event.preventDefault();
 
     getPaymentFormData(objectState);
-    //console.log(objectState);
+    console.log(objectState);
 
     setObjectState({
       name: "",
       price: 0,
+      method: "card",
+      installments: "",
+      color: "",
       today: new Date(),
     });
   };
@@ -63,6 +90,53 @@ const PaymentForm = ({ getPaymentFormData }) => {
               step="0.01"
               onChange={inputPriceHandler}
               value={objectState.price}
+            />
+          </div>
+          <div className="new-payment__control">
+            <label>지불방식</label>
+            <div className="payment__control__radiogroup">
+              <label className="payment__control__radio">
+                <input
+                  type="radio"
+                  name="method"
+                  value={objectState.method}
+                  defaultChecked={true}
+                  onChange={inputMethodHandler}
+                />
+                Card
+              </label>
+              <label className="payment__control__radio">
+                <input
+                  type="radio"
+                  name="method"
+                  value={objectState.method}
+                  onChange={inputMethodHandler}
+                />
+                Cash
+              </label>
+            </div>
+          </div>
+          <div className="new-payment__control">
+            <label>분납</label>
+            <div className="payment__control__radiogroup">
+              <label className="payment__control__radio">
+                <input
+                  type="checkbox"
+                  name="installments"
+                  value={objectState.installments}
+                  onChange={inputInstallmentsHandler}
+                />
+                할부
+              </label>
+            </div>
+          </div>
+          <div className="new-payment__control">
+            <label>색깔</label>
+            <input
+              type="color"
+              name="color"
+              value={objectState.color}
+              onChange={inputColorHandler}
             />
           </div>
           <div className="new-payment__control">
